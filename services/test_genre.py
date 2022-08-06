@@ -24,7 +24,7 @@ def genre_dao():
 
     return genre_dao
 
-class TestDirectorService:
+class TestGenreService:
     @pytest.fixture(autouse=True)
     def genre_service(self, genre_dao):
         self.genre_service = GenreService(dao=genre_dao)
@@ -35,8 +35,8 @@ class TestDirectorService:
         assert genre.id is not None
 
     def test_get_all(self):
-        directors = self.genre_service.get_all()
-        assert len(directors) > 0
+        genres = self.genre_service.get_all()
+        assert len(genres) > 0
 
     def test_create(self):
         genre_d = {"name": "Боевик"}
