@@ -43,8 +43,26 @@ class TestGenreService:
         genre = self.genre_service.create(genre_d)
         assert genre.id is not None
 
-    def test_delete(self):
-        assert 1 == 1
+    parametres = (
+                (
+                    {
+                        'id': 1,
+                        'title': 'Noname'
+                    },
+                    {
+                        'id': 1,
+                        'title': 'TestName'
+                    }
+                ),
+            )
 
-    def test_update(self):
-        assert 1 == 1
+    @pytest.mark.parametrize('genre_original, genre_new', parametres)
+    def test_update(self, genre_original, genre_new):
+        self.genre_service.update(genre_new)
+        self.genre_service.dao.update.assert_called_once_with(genre_new)
+
+
+    def test_delete(self):
+        self.genre_service.delete(1)
+        self.genre_service.dao.delete.assert_called_once_with(1)
+

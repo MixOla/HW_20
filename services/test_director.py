@@ -43,9 +43,25 @@ class TestDirectorService:
         director = self.director_service.create(director_d)
         assert director.id is not None
 
+    parametres = (
+                (
+                    {
+                        'id': 1,
+                        'title': 'Noname'
+                    },
+                    {
+                        'id': 1,
+                        'title': 'TestName'
+                    }
+                ),
+            )
+
+    @pytest.mark.parametrize('director_original, director_new', parametres)
+    def test_update(self, director_original, director_new):
+        self.director_service.update(director_new)
+        self.director_service.dao.update.assert_called_once_with(director_new)
+
+
     def test_delete(self):
-        assert 1 == 1
-
-    def test_update(self):
-        assert 1 == 1
-
+        self.director_service.delete(1)
+        self.director_service.dao.delete.assert_called_once_with(1)

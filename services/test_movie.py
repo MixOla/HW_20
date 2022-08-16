@@ -87,10 +87,9 @@ class TestMovieService:
 
     @pytest.mark.parametrize('movie_original, movie_new', parametres)
     def test_update(self, movie_original, movie_new):
-        self.movie_service.update.return_value = movie_new
-        assert self.movie_service.update(movie_new) == movie_new
-
+        self.movie_service.update(movie_new)
         self.movie_service.dao.update.assert_called_once_with(movie_new)
+
 
     def test_delete(self):
         self.movie_service.delete(1)
